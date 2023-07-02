@@ -1,0 +1,31 @@
+server:
+  port: 8085
+  http2:
+    enabled: true
+  ssl:
+    enabled: true
+    client-auth: none
+    key-store:  file:/Users/20967134/Documents/ssl/discovery.p12
+    key-store-type: PKCS12
+    key-store-password: 123456
+    trust-store:  file:/Users/20967134/Documents/ssl/discovery.p12
+    trust-store-type: PKCS12
+    trust-store-password: 123456
+    key-alias: eureka
+---
+spring:
+  application:
+    name: eureka-service
+  profiles:
+    include:
+      - dev
+    active: dev
+  cloud:
+    config:
+      uri: https://localhost:8086
+#      uri: http://localhost:8086
+      fail-fast: true
+      retry:
+        max-attempts: 20
+        max-interval: 15000
+        initial-interval: 10000
